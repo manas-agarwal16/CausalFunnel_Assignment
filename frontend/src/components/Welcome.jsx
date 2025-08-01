@@ -1,12 +1,32 @@
 import React, { useState } from "react";
+import API from "../helper/axiosInstance.js";
 
 export default function WelcomePage() {
   const [email, setEmail] = useState("");
   const [focused, setFocused] = useState(false);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await API.post("/api/submit-email", { email });
+      // Handle the response from the backend
+      console.log("Response from backend:", response.data);
+
+      // Check if the response is successful
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      console.log("Email submitted successfully:", data);
+      // Redirect to quiz page or show success message
+    } catch (error) {}
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-100 via-white to-indigo-100 dark:from-[#232946] dark:via-[#15161c] dark:to-[#191a22] transition-colors duration-500">
-      <div className="bg-white/80 dark:bg-[#232946]/80 shadow-xl rounded-3xl p-8 md:p-12 max-w-lg w-full 
+      <div
+        className="bg-white/80 dark:bg-[#232946]/80 shadow-xl rounded-3xl p-8 md:p-12 max-w-lg w-full 
         animate-fade-in-up border border-gray-200 dark:border-[#35375a] relative overflow-hidden"
       >
         {/* Decorative Circles */}
@@ -15,26 +35,27 @@ export default function WelcomePage() {
 
         {/* Main Content */}
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 animate-fade-in-down">
-          Welcome to the <span className="text-indigo-600 dark:text-cyan-400">Quiz</span>!
+          Welcome to the{" "}
+          <span className="text-indigo-600 dark:text-cyan-400">Quiz</span>!
         </h1>
 
         <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 animate-fade-in">
           Please enter your email below. <br />
-          <span className="text-indigo-600 dark:text-teal-300 font-semibold">The result of the quiz will be shared to this email.</span>
+          <span className="text-indigo-600 dark:text-teal-300 font-semibold">
+            The result of the quiz will be shared to this email.
+          </span>
         </p>
 
         <form
           className="flex flex-col gap-4 mt-2 w-full animate-fade-in-up"
-          onSubmit={(e) => {
-            e.preventDefault();
-            // Handle your logic here
-            alert("Thank you! We'll send results to: " + email);
-          }}
+          onSubmit={handleSubmit}
         >
           {/* Email Input */}
-          <div className={`relative transition-all duration-300 ${
-            focused ? "ring-2 ring-indigo-500" : ""
-          } rounded-lg`}>
+          <div
+            className={`relative transition-all duration-300 ${
+              focused ? "ring-2 ring-indigo-500" : ""
+            } rounded-lg`}
+          >
             <input
               type="email"
               required
@@ -47,7 +68,11 @@ export default function WelcomePage() {
             />
             {/* Animated Email Icon */}
             <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-indigo-500 dark:text-cyan-300 transition-opacity duration-200 pointer-events-none">
-              <svg fill="none" viewBox="0 0 24 24" className="w-6 h-6 animate-fade-in-delay">
+              <svg
+                fill="none"
+                viewBox="0 0 24 24"
+                className="w-6 h-6 animate-fade-in-delay"
+              >
                 <path
                   d="M3 8l7.89 5.26a3 3 0 003.22 0L22 8M5 7h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2z"
                   stroke="currentColor"
