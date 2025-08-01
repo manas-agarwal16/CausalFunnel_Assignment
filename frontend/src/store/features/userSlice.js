@@ -8,7 +8,7 @@ export const userSlice = createSlice({
     answers: [],
   },
   reducers: {
-    setEmail: (state, action) => {
+    setEmail: (state, action) => {      
       state.email = action.payload;
     },
     setMarks: (state, action) => {

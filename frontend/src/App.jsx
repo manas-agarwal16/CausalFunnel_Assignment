@@ -1,12 +1,12 @@
-import React from 'react';
-import WelcomePage from './pages/WelcomePage.jsx';
+import React from "react";
+import WelcomePage from "./pages/WelcomePage.jsx";
+import { Outlet } from "react-router-dom";
 function App() {
-
   return (
     <>
-      <WelcomePage />
+      <Outlet />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

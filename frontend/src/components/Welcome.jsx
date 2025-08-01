@@ -1,26 +1,32 @@
 import React, { useState } from "react";
 import API from "../helper/axiosInstance.js";
+import { useDispatch } from "react-redux";
+import { setEmail as setEmailOnRedux } from "../store/features/userSlice.js";
+import { useNavigate } from "react-router-dom";
 
 export default function WelcomePage() {
   const [email, setEmail] = useState("");
   const [focused, setFocused] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await API.post("/api/submit-email", { email });
-      // Handle the response from the backend
-      console.log("Response from backend:", response.data);
+      // 1. Send email to backend
+      await API.post("/user-email", { email });
 
-      // Check if the response is successful
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+      // 2. Store email in Redux
+      dispatch(setEmailOnRedux(email));
 
-      const data = await response.json();
-      console.log("Email submitted successfully:", data);
-      // Redirect to quiz page or show success message
-    } catch (error) {}
+      // redirect to instructions page
+      navigate("/instructions");
+    } catch (error) {
+      console.error(
+        "Error submitting email:",
+        error.response?.data || error.message
+      );
+    }
   };
 
   return (

@@ -22,6 +22,10 @@ app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true }));
 
 //route imports
+import userRoutes from "./routes/userRoutes.js";
+
+//using routes
+app.use("", userRoutes);
 
 app.get("/", (req, res) => {
   res
