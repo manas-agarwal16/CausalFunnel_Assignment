@@ -46,4 +46,5 @@ const sendOTPThroughEmail = async (userEmail, score) => {
     return false;
   }
 };
+
 export { sendOTPThroughEmail };
