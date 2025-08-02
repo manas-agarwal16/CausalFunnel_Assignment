@@ -5,7 +5,12 @@ import store from "./store/store.js";
 import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { InstructionsPage, WelcomePage, QuizPage } from "./pages/index.js";
+import {
+  InstructionsPage,
+  WelcomePage,
+  QuizPage,
+  ReportPage,
+} from "./pages/index.js";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "quiz",
         element: <QuizPage />,
+      },
+      {
+        path: "report",
+        element: <ReportPage />,
       },
     ],
   },

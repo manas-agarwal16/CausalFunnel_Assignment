@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { formatTime } from "../helper/formatTime.js";
 import { useNavigate } from "react-router-dom";
 import API from "../helper/axiosInstance.js";
+import { setQuizSubmitted } from "../store/features/userSlice.js";
 
 const TOTAL_QUESTIONS = 15;
 const QUIZ_DURATION_SECONDS = 30 * 60; // 30 minutes
 
 export default function QuizPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Get user email from Redux store
   const userEmail = useSelector((state) => state.user.email);
@@ -79,12 +81,20 @@ export default function QuizPage() {
   };
 
   // Submit quiz handler
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (isSubmitted) return;
     setIsSubmitted(true);
     clearInterval(timerRef.current);
+    dispatch(setQuizSubmitted(true));
 
     // Call the Backend API to submit answers
+    await API.post("/submit-quiz", {
+      email: userEmail,
+      answers: answers,
+    });
+
+    // Redirect to results page after submission
+    navigate("/report");
   };
 
   // Green: Answered, Yellow: Visited but no answer, Gray: Not visited

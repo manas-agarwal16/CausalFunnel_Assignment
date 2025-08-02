@@ -20,7 +20,7 @@ export function ToggleButton() {
   }, [theme]);
 
   return (
-    <div>
+    <div className="sticky top-0 right-0 z-50">
       <button
         className="absolute top-4 right-4 p-2 pr-4 pl-3 rounded-full bg-gray-100 dark:bg-gray-800 shadow hover:bg-gray-200 dark:hover:bg-gray-700 transition flex items-center gap-2"
         aria-label="Toggle theme"
@@ -28,8 +28,8 @@ export function ToggleButton() {
       >
         {theme === "dark" ? (
           <>
-            <span className="text-lg">☀️</span>
-            <span className="hidden sm:block text-sm text-white">Light Mode</span>
+            <span className="text-lg">🌞</span>
+            <span className="hidden sm:block text-sm text-yellow-400">Light Mode</span>
           </>
         ) : (
           <>

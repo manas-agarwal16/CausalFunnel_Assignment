@@ -85,4 +85,73 @@ const fetchQuestions = AsyncHandler(async (req, res) => {
   }
 });
 
-export { userEmail, fetchQuestions };
+const submitQuiz = AsyncHandler(async (req, res) => {
+  const { email, answers } = req.body;
+
+  if (!email || !answers) {
+    return res
+      .status(400)
+      .json(new ApiResponse(400, {}, "Email and answers are required"));
+  }
+
+  console.log("answers : ", answers);
+
+  // Check if user exists
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(404).json(new ApiResponse(404, {}, "User not found"));
+  }
+
+  // Save user's answers
+  user.quizQuestionsAndResponses.forEach((q, idx) => {
+    q.selectedAnswer = q.options[answers[idx]];
+    q.isCorrect = q.correctAnswer === q.selectedAnswer;
+  });
+
+  // Calculate score
+  const totalMarks = user.quizQuestionsAndResponses.reduce(
+    (acc, q) => acc + (q.isCorrect ? 1 : 0),
+    0
+  );
+
+  user.score = totalMarks;
+  await user.save();
+
+  res
+    .status(200)
+    .json(
+      new ApiResponse(200, { user, totalMarks }, "Quiz submitted successfully")
+    );
+});
+
+const fetchQuizReport = AsyncHandler(async (req, res) => {
+  try {
+    const { email } = req.params;
+
+    // Validate email
+    if (!email) {
+      return res
+        .status(400)
+        .json(new ApiResponse(400, {}, "Email is required"));
+    }
+
+    // Check if user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json(new ApiResponse(404, {}, "User not found"));
+    }
+
+    const quizReport = await User.findOne({ email });
+
+    res
+      .status(200)
+      .json(
+        new ApiResponse(200, { quizReport }, "Quiz report fetched successfully")
+      );
+  } catch (error) {
+    console.error("Error fetching quiz report:", error);
+    res.status(500).json({ error: "Failed to fetch quiz report" });
+  }
+});
+
+export { userEmail, fetchQuestions, submitQuiz, fetchQuizReport };
