@@ -18,7 +18,7 @@ transporter.on("sent", (info) => {
   }
 });
 
-const sendOTPThroughEmail = async (userEmail, score) => {
+const sendScoreThroughEmail = async (userEmail, score) => {
   let mailOptions = {
     from: "manas.agarwal1604@gmail.com",
     to: userEmail,
@@ -47,4 +47,4 @@ const sendOTPThroughEmail = async (userEmail, score) => {
   }
 };
 
-export { sendOTPThroughEmail };
+export { sendScoreThroughEmail };
