@@ -3,6 +3,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 // import fetch from "node-fetch";
 import { shuffle } from "../utils/ShuffleArray.js";
 import { User } from "../models/userModel.js";
+import { sendOTPThroughEmail } from "../utils/Mail.js";
 
 const userEmail = AsyncHandler(async (req, res) => {
   try {
@@ -94,8 +95,6 @@ const submitQuiz = AsyncHandler(async (req, res) => {
       .json(new ApiResponse(400, {}, "Email and answers are required"));
   }
 
-  console.log("answers : ", answers);
-
   // Check if user exists
   const user = await User.findOne({ email });
   if (!user) {
@@ -116,6 +115,9 @@ const submitQuiz = AsyncHandler(async (req, res) => {
 
   user.score = totalMarks;
   await user.save();
+
+
+  await sendOTPThroughEmail(user.email, totalMarks);
 
   res
     .status(200)

@@ -23,7 +23,6 @@ export default function ReportPage() {
       // Replace this with your real fetching logic
       const response = await API.get(`/quiz-report/${userEmail}`);
 
-      console.log("response?.data?.data?.quizReport?.quizQuestionsAndResponses", response?.data?.data?.quizReport?.quizQuestionsAndResponses);
       setQuizReport(
         response?.data?.data?.quizReport?.quizQuestionsAndResponses || []
       );
@@ -39,7 +38,7 @@ export default function ReportPage() {
   return (
     <>
       <ToggleButton />
-      <Report quizReport={quizReport} score={score} />
+      <Report quizReport={quizReport} score={score} email={userEmail} />
     </>
   );
 }

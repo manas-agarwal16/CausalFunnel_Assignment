@@ -1,14 +1,23 @@
 import React from "react";
 import { getOptionLabel } from "../helper/optionLabel.js";
 
-export default function Report({ quizReport = [], score = 0 }) {
+export default function Report({ quizReport = [], score = 0, email }) {
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col items-center px-4 py-8 transition-colors duration-500">
       {/* Total Score */}
       <div className="w-full max-w-2xl bg-white dark:bg-gray-800 rounded-xl shadow p-6 mb-8 flex flex-col items-center">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
           Quiz Report
         </h2>
+
+        <p className="text-center text-gray-700 dark:text-gray-300 text-sm mb-4">
+          Your quiz score has been sent to your email:&nbsp;
+          <span className="font-medium text-gray-900 dark:text-gray-100">
+            {email}
+          </span>
+        </p>
+
         <div className="text-lg text-gray-700 dark:text-gray-200 mb-2">
           Total Score:&nbsp;
           <span
@@ -21,6 +30,7 @@ export default function Report({ quizReport = [], score = 0 }) {
             {score} / {quizReport.length}
           </span>
         </div>
+
         <p className="text-sm text-gray-500 dark:text-gray-300">
           Each question carries 1 mark
         </p>
