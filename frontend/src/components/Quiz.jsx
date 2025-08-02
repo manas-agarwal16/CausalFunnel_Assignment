@@ -136,7 +136,7 @@ export default function QuizPage() {
       </div>
     );
   }
-  
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-500 flex flex-col md:flex-row max-w-7xl mx-auto p-4 md:p-8">
       {/* Sidebar + timer */}
@@ -206,7 +206,7 @@ export default function QuizPage() {
 
       {/* Main question panel */}
       {questions.length > 0 && questions[currentQuestionIndex] && (
-        <main className="flex-1 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 flex flex-col">
+        <main key={currentQuestionIndex} className="flex-1 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 flex flex-col opacity-0 animate-fadeInSlow">
           <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
             {questions[currentQuestionIndex].question}
           </h3>
