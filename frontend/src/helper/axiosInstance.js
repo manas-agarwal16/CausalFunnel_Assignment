@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BACKEND_URL = 'http://localhost:8000';
+const BACKEND_URL = 'https://causalfunnel-assignment-x3j3.onrender.com';
 
 const axiosInstance = axios.create();
 
