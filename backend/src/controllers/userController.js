@@ -7,7 +7,6 @@ import { User } from "../models/userModel.js";
 const userEmail = AsyncHandler(async (req, res) => {
   try {
     const { email } = req.body;
-    console.log("email in backend:", email);
 
     if (!email) {
       return res.status(400).json({ message: "Email is required" });
@@ -36,7 +35,7 @@ const userEmail = AsyncHandler(async (req, res) => {
 
 const fetchQuestions = AsyncHandler(async (req, res) => {
   try {
-    const { email } = req.body;
+    const { email } = req.params;
     if (!email) {
       return res.status(400).json({ message: "User email is required" });
     }
@@ -50,10 +49,9 @@ const fetchQuestions = AsyncHandler(async (req, res) => {
     const response = await fetch("https://opentdb.com/api.php?amount=15");
     const data = await response.json();
 
-    console.log("Fetched trivia questions:", data);
-
-    const questions = data.results.map((question) => ({
+    const questions = data.results.map((question, index) => ({
       question: question.question,
+      id: index + 1,
       options: shuffle([
         ...question.incorrect_answers,
         question.correct_answer,
@@ -67,12 +65,17 @@ const fetchQuestions = AsyncHandler(async (req, res) => {
       { quizQuestionsAndResponses: questions }
     );
 
+    // skip the correctAnswer field for frontend
+    const questionsForFrontend = questions.map(
+      ({ correctAnswer, ...rest }) => rest
+    );
+
     res
       .status(201)
       .json(
         new ApiResponse(
           201,
-          { questions: [...questions, { correctAnswer: null }] },
+          { questions: questionsForFrontend },
           "Questions fetched successfully"
         )
       );

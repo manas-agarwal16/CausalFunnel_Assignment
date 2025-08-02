@@ -4,7 +4,7 @@ import { userEmail, fetchQuestions } from "../controllers/userController.js";
 const router = express.Router();
 
 router.post("/user-email", userEmail);
-router.get("/fetch-questions", fetchQuestions);
+router.get("/fetch-questions/:email", fetchQuestions);
 
 
 export default router;

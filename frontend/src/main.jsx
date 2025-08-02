@@ -3,13 +3,9 @@ import "./index.css";
 import App from "./App.jsx";
 import store from "./store/store.js";
 import { Provider } from "react-redux";
-import {
-  BrowserRouter,
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { InstructionsPage, WelcomePage } from "./pages/index.js";
+import { InstructionsPage, WelcomePage, QuizPage } from "./pages/index.js";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: "instructions",
         element: <InstructionsPage />,
+      },
+      {
+        path: "quiz",
+        element: <QuizPage />,
       },
     ],
   },

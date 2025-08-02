@@ -34,6 +34,12 @@ export default function InstructionsPage() {
     requestFullscreen();
   }, [userEmail, navigate]);
 
+  const handleProceed = () => {
+    if (accepted) {
+      navigate("/quiz"); // Proceed to QuizPage
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 transition-colors duration-500">
       <div className="w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
@@ -117,12 +123,7 @@ export default function InstructionsPage() {
                 ? "bg-indigo-600 hover:bg-indigo-700 dark:bg-cyan-600 dark:hover:bg-cyan-700 cursor-pointer"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
-          onClick={() => {
-            if (accepted) {
-              alert("Thank you for confirming. Proceeding...");
-              // Add your navigation or next steps here
-            }
-          }}
+          onClick={handleProceed}
         >
           Proceed to Quiz
         </button>

@@ -28,15 +28,8 @@ export function ToggleButton() {
       >
         {theme === "dark" ? (
           <>
-            <svg
-              className="w-6 h-6 text-yellow-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <circle cx="12" cy="12" r="8" fill="currentColor" />
-            </svg>
-            <span className="text-sm text-white">Light Mode</span>
+            <span className="text-lg">☀️</span>
+            <span className="hidden sm:block text-sm text-white">Light Mode</span>
           </>
         ) : (
           <>
