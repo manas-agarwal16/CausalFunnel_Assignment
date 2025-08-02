@@ -3,7 +3,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 // import fetch from "node-fetch";
 import { shuffle } from "../utils/ShuffleArray.js";
 import { User } from "../models/userModel.js";
-import { sendOTPThroughEmail } from "../utils/Mail.js";
+import { sendOTPThroughEmail } from "../utils/Mail.js"; 
 
 const userEmail = AsyncHandler(async (req, res) => {
   try {
