@@ -42,7 +42,7 @@ export default function QuizPage() {
 
   // Begin countdown logic
   useEffect(() => {
-    if (!questions.length) return; // Don’t start until questions are loaded
+    if (!questions.length) return;
     if (isSubmitted) return;
     if (beginCountdown <= 0) return;
 
@@ -62,7 +62,7 @@ export default function QuizPage() {
   // Start main timer after begin phase
   useEffect(() => {
     if (isSubmitted) return;
-    if (beginCountdown > 0) return; // Only start after begin countdown
+    if (beginCountdown > 0) return;
 
     timerRef.current = setInterval(() => {
       setMainTimeLeft((prev) => {
@@ -76,7 +76,6 @@ export default function QuizPage() {
     }, 1000);
 
     return () => clearInterval(timerRef.current);
-    // eslint-disable-next-line
   }, [beginCountdown, isSubmitted]);
 
   // Navigation
@@ -137,8 +136,7 @@ export default function QuizPage() {
       </div>
     );
   }
-
-  // Main quiz UI starts after countdown
+  
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-500 flex flex-col md:flex-row max-w-7xl mx-auto p-4 md:p-8">
       {/* Sidebar + timer */}

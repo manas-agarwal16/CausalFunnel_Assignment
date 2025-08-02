@@ -28,7 +28,7 @@ export default function InstructionsPage() {
   // Check if user email is set, if not, redirect to WelcomePage
   useEffect(() => {
     if (!userEmail) {
-      navigate("/"); // Assuming you have a WelcomePage to redirect to
+      navigate("/");
     }
     // Request fullscreen mode when the component mounts
     requestFullscreen();
